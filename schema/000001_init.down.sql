@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS user_situation;
+DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS situations;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS incident_types;
+DROP TABLE IF EXISTS cameras;
