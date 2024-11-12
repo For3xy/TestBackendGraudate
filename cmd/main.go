@@ -2,13 +2,18 @@ package main
 
 import (
 	"log"
-	"testbackendGraudate"
-	"testbackendGraudate/pkg/handler"
+	"testbackendGraudate/internal/handler"
+	"testbackendGraudate/internal/repository"
+	"testbackendGraudate/internal/service"
+	"testbackendGraudate/pkg/server"
 )
 
 func main() {
-	server := new(testbackendGraudate.Server)
-	handlers := new(handler.Handler)
+	rep := repository.NewRepository()
+	services := service.NewService(rep)
+	handlers := handler.NewHandler(services)
+
+	server := new(server.Server)
 	if err := server.Run("8000", handlers.InitRoutes()); err != nil {
 		log.Fatalf("server run error: %s", err.Error())
 	}

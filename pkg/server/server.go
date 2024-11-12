@@ -1,4 +1,4 @@
-package testbackendGraudate
+package server
 
 import (
 	"context"
