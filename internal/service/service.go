@@ -1,8 +1,12 @@
 package service
 
-import "testbackendGraudate/internal/repository"
+import (
+	"testbackendGraudate/domain"
+	"testbackendGraudate/internal/repository"
+)
 
 type Authorization interface {
+	CreateUser(user domain.User) (int, error)
 }
 
 type Camera interface {
@@ -30,5 +34,7 @@ type Service struct {
 }
 
 func NewService(rep *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(rep.Authorization),
+	}
 }
