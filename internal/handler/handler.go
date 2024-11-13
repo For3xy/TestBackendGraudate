@@ -69,6 +69,14 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			notifications.DELETE("/:id", h.deleteNotification)
 		}
 
+		usersSituations := router.Group("/users_situation")
+		{
+			usersSituations.POST("/", h.createUserSituation)
+			usersSituations.GET("/", h.listUserSituations)
+			usersSituations.GET("/:id", h.getUserSituationById)
+			usersSituations.PUT("/:id", h.updateUserSituation)
+			usersSituations.DELETE("/:id", h.deleteUserSituation)
+		}
 	}
 
 	return router
