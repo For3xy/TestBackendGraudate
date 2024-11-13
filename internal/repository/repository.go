@@ -7,6 +7,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user domain.User) (int, error)
+	LoginUser(email, password string) (domain.User, error)
 }
 
 type Camera interface {

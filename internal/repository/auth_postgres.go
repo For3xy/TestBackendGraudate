@@ -26,3 +26,17 @@ func (p *AuthPostgres) CreateUser(user domain.User) (int, error) {
 
 	return id, nil
 }
+
+func (p *AuthPostgres) LoginUser(email, password string) (domain.User, error) {
+	var user domain.User
+	query := fmt.Sprintf("SELECT id FROM %s WHERE email=$1 AND password=$2", usersTable)
+	err := p.db.Get(&user, query, email, password)
+
+	user.LastLogin = time.Now()
+	_, errUpdate := p.db.Exec("UPDATE users SET last_login = $1 WHERE id = $2", user.LastLogin, user.ID)
+	if errUpdate != nil {
+		return user, errUpdate
+	}
+
+	return user, err
+}
